@@ -1,0 +1,10 @@
+{
+	"rows":[
+		{"id":"1","cweekDay":"001","clineName":"线路一","cownerName":"张*","dcreate":"2015-1-1","ccreateBy":"张亮"},
+		{"id":"2","cweekDay":"002","clineName":"线路二","cownerName":"张*","dcreate":"2015-1-1","ccreateBy":"张亮"},
+		{"id":"3","cweekDay":"003","clineName":"线路三","cownerName":"张*","dcreate":"2015-1-1","ccreateBy":"张亮"},
+		{"id":"4","cweekDay":"004","clineName":"线路四","cownerName":"张*","dcreate":"2015-1-1","ccreateBy":"张亮"},
+		{"id":"4","cweekDay":"005","clineName":"线路五","cownerName":"张*","dcreate":"2015-1-1","ccreateBy":"张亮"},
+		{"id":"4","cweekDay":"006","clineName":"线路六","cownerName":"张*","dcreate":"2015-1-1","ccreateBy":"张亮"}
+	]
+}

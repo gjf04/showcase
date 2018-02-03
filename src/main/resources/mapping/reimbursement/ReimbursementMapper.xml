@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.reimbursement.ReimbursementDao">
+  <resultMap id="reimbursementMap" type="com.admin.entity.reimbursement.Reimbursement">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="style" jdbcType="VARCHAR" property="style" />
+    <result column="approval_man" jdbcType="VARCHAR" property="approvalMan" />
+    <result column="caiwu_man" jdbcType="VARCHAR" property="caiwuMan" />
+    <result column="approval_date" jdbcType="TIMESTAMP" property="approvalDate" />
+    <result column="caiwu_date" jdbcType="TIMESTAMP" property="caiwuDate" />
+    <result column="approval_state" jdbcType="INTEGER" property="approvalState" />
+    <result column="fee_amt" jdbcType="FLOAT" property="feeAmt" />
+    <result column="fee_date" jdbcType="TIMESTAMP" property="feeDate" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, user_name, style, approval_man, caiwu_man, approval_date, caiwu_date, approval_state,fee_amt, fee_date, created_at, updated_at, created_by, updated_by, remark, is_delete
+  </sql>
+
+  <sql id="table">reimbursement</sql>
+
+  <select id="getById" parameterType="java.lang.Integer" resultMap="reimbursementMap">
+    select 
+    <include refid="Base_Column_List" />
+    from <include refid="table"/>
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from <include refid="table"/>
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.admin.entity.reimbursement.Reimbursement">
+   INSERT INTO <include refid="table"/> (
+			user_id,
+			user_name,
+            style,
+            approval_man,
+            caiwu_man,
+            approval_date,
+            caiwu_date,
+            approval_state,
+            fee_amt,
+            fee_date,
+			created_at,
+			updated_at,
+			created_by,
+			updated_by,
+			remark,
+			is_delete
+		) VALUES (
+			#{userId},
+			#{userName},
+			#{style},
+            '',
+			'',
+            NULL,
+            NULL,
+            0,
+            #{feeAmt},
+            #{feeDate},
+			#{createdAt},
+			#{updatedAt},
+			#{createdBy},
+			#{updatedBy},
+			#{remark},
+			0
+		)
+  </insert>
+
+  <update id="update" parameterType="com.admin.entity.reimbursement.Reimbursement">
+    UPDATE <include refid="table"/> SET
+
+            style = #{style},
+            approval_man = #{approvalMan},
+            caiwu_man = #{caiwuMan},
+            approval_date = #{approvalDate},
+            fee_amt = #{feeAmt},
+            fee_date = #{feeDate},
+            caiwu_date = #{caiwuDate},
+            approval_state = #{approvalState},
+			updated_at = #{updatedAt},
+			updated_by = #{updatedBy},
+			remark = #{remark},
+			is_delete = 0
+		WHERE id = #{id}
+  </update>
+
+    <update id="approval" parameterType="com.admin.entity.reimbursement.Reimbursement">
+        UPDATE <include refid="table"/> SET
+            approval_man = #{approvalMan},
+            caiwu_man = #{caiwuMan},
+            approval_date = #{approvalDate},
+            caiwu_date = #{caiwuDate},
+            approval_state = #{approvalState}
+        WHERE id = #{id}
+    </update>
+
+  <update id="deleteById" parameterType="com.admin.entity.reimbursement.Reimbursement">
+    UPDATE <include refid="table"/>
+    SET	is_delete = 1
+	WHERE id = #{id}
+  </update>
+  <sql id="condition">
+    <where>
+          is_delete=0
+        <if test="userId != null and userId != ''">
+            AND user_id = #{userId}
+        </if>
+        <if test="userName != null and userName != ''">
+            AND user_name LIKE concat('%', #{userName}, '%')
+        </if>
+        <if test="style != null and style != ''">
+            <if test="style != '所有'">
+                AND style = #{style}
+            </if>
+        </if>
+        <if test="approvalState != null and approvalState != ''">
+            AND approval_state = #{approvalState}
+        </if>
+        <if test="createdAtStart !=null and createdAtStart != ''">
+            AND <![CDATA[created_at >= #{createdAtStart}]]>
+        </if>
+        <if test="createdAtEnd !=null and createdAtEnd != ''">
+            AND <![CDATA[created_at <= #{createdAtEnd}]]>
+        </if>
+    </where>
+  </sql>
+
+  <select id="queryListBy" resultMap="reimbursementMap" parameterType="map">
+    SELECT <include refid="Base_Column_List"/>
+    FROM <include refid="table"/>
+      <include refid="condition"/>
+    ORDER BY id DESC
+    LIMIT #{start},#{size}
+  </select>
+
+  <select id="queryCountBy" resultType="Integer" parameterType="map">
+    SELECT COUNT(id)
+    FROM <include refid="table"/>
+    <include refid="condition"/>
+  </select>
+  
+</mapper>

@@ -1,0 +1,11 @@
+{
+ 	"total" : 10,
+ 	"rows" : [
+		{"carea":"FI-SW-01","coffice":"Koi","cwarroom":10.00,"cstoreCode":"P","cstoreName":36.50,"ctype":"Large","clevel":"EST-1","firstLevel":"","secondLevel":"","thirdLevel":"","cproductName":"","iorderNumber":"","cproductCode":"","cvisiter":"","cvisiterName":"","dvisit":""},
+		{"carea":"FI-SW-01","coffice":"Koi","cwarroom":10.00,"cstoreCode":"P","cstoreName":36.50,"ctype":"Large","clevel":"EST-1","firstLevel":"","secondLevel":"","thirdLevel":"","cproductName":"","iorderNumber":"","cproductCode":"","cvisiter":"","cvisiterName":"","dvisit":""},
+		{"carea":"FI-SW-01","coffice":"Koi","cwarroom":10.00,"cstoreCode":"P","cstoreName":36.50,"ctype":"Large","clevel":"EST-1","firstLevel":"","secondLevel":"","thirdLevel":"","cproductName":"","iorderNumber":"","cproductCode":"","cvisiter":"","cvisiterName":"","dvisit":""}
+	],
+	"footer" : [
+		
+	]
+}

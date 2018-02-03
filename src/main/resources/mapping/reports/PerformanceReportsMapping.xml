@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.admin.dao.reports.PerformanceReportsDao">
+    <resultMap id="performanceReportsMap" type="com.admin.entity.reports.PerformanceReports">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="year" column="year"/>
+        <result property="month" column="month"/>
+        <result property="orderMonthTarget" column="order_month_target"/>
+        <result property="orderMonthActual" column="order_month_actual"/>
+        <result property="orderMonthRate" column="order_month_rate"/>
+        <result property="orderQuarterTarget" column="order_quarter_target"/>
+        <result property="orderQuarterActual" column="order_quarter_actual"/>
+        <result property="orderQuarterRate" column="order_quarter_rate"/>
+        <result property="contractTarget" column="contract_target"/>
+        <result property="contractActual" column="contract_actual"/>
+        <result property="contractRate" column="contract_rate"/>
+        <result property="dailyCheckRate" column="daily_check_rate"/>
+        <result property="daily" column="daily"/>
+        <result property="checkRanking" column="check_ranking"/>
+        <result property="enable" column="enable"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedBy" column="updated_by"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="columns">
+        name,year,month,order_month_target,order_month_actual,order_month_rate,order_quarter_target,order_quarter_actual,order_quarter_rate,contract_target,
+        contract_actual,contract_rate,daily_check_rate,daily,check_ranking,enable,created_by,created_at,updated_by,updated_at,remark
+    </sql>
+    <sql id="table">performance_reports</sql>
+
+    <select id="getPerformanceReportsListByPerson"  parameterType="Map"  resultMap="performanceReportsMap">
+        SELECT id,<include refid="columns"/>
+        FROM <include refid="table"/>
+        WHERE enable = 1
+        <include refid="performanceReportsQuery"/>
+        ORDER BY name,month
+        <if test="m!=null and n!=null">
+            Limit ${m},${n}
+        </if>
+    </select>
+
+    <sql id="performanceReportsQuery">
+        <if test="year != null and year != ''">
+            AND year = #{year}
+        </if>
+        <if test="year == null or year == ''">
+            AND year = DATE_FORMAT(NOW(), '%Y')
+        </if>
+        <if test="month != null and month != ''">
+            AND month = #{month}
+        </if>
+    </sql>
+
+    <select id="getPerformanceReportsListByMonth"  parameterType="Map"  resultMap="performanceReportsMap">
+        SELECT month, sum(order_month_target) orderMonthTarget, sum(order_month_actual) orderMonthActual, sum(order_month_actual)/sum(order_month_target) orderMonthRate,
+                order_quarter_target, order_quarter_actual, order_quarter_rate,
+                sum(contract_target) contractTarget,sum(contract_actual) contractActual, sum(contract_actual)/sum(contract_target) contractRate
+        FROM <include refid="table"/>
+        WHERE enable = 1
+        <include refid="performanceReportsQuery"/>
+        GROUP BY month,order_quarter_target,order_quarter_actual,order_quarter_rate
+        ORDER BY month ASC
+        <if test="m!=null and n!=null">
+            Limit ${m},${n}
+        </if>
+    </select>
+
+    <select id="getPerformanceReportsCurrentYear"  resultMap="performanceReportsMap">
+        SELECT sum(contract_target) contractTarget,sum(contract_actual) contractActual,sum(contract_target-contract_actual) contractRate
+        FROM <include refid="table"/>
+        WHERE enable = 1
+        AND year = DATE_FORMAT(NOW(), '%Y')
+    </select>
+</mapper>

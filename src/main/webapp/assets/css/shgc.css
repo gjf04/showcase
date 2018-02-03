@@ -1,0 +1,233 @@
+.approve{
+	position:fixed; 
+	top: 32px;
+	right:40px;
+	width: 20px;
+	height: 20px;
+	z-index: 999999;
+	border: 1px solid #C0C0C0;
+	opacity:0.5;
+}
+
+#showtime{
+	width:20px;
+	height: 20px;
+	background: url("../images/show_l.png");
+	cursor: pointer;
+}
+#hidetime{
+	width:20px;
+	height: 20px;
+	display: none;
+	background: url("../images/hide_r.png");
+	cursor: pointer;
+}
+#showsh{
+	width:20px;
+	height: 20px;
+	background: url("../images/show_b.png");
+	cursor: pointer;
+	position: absolute;
+	right: 0px;
+	top:0px;
+	z-index: 9999999;
+}
+#hidesh{
+	width:20px;
+	height: 20px;
+	display: none;
+	background: url("../images/hide_t.png");
+	cursor: pointer;
+	position: absolute;
+	right: 0px;
+	top:0px;
+	z-index: 9999999;
+}
+#showDiv{
+/* 	background: url("../images/lightbg.png") repeat-x; */
+/* 	display: none; */
+	height:65px;
+	/*修改后增加*/
+	width:100%;
+	overflow-x:auto; 
+	overflow-y:hidden; 
+}
+
+#showDiv .shNodediv{
+	height: 45px;
+	width:120px;
+	float: left;
+}
+#showDiv .lighton{
+	background: url("../images/lighton.png");
+	background-position:0px -10px ;
+}
+#showDiv .lightoff{
+	background: url("../images/lightoff.png");
+	background-position:0px -10px ;
+}
+#showDiv .lightred{
+	background: url("../images/light_red.png");
+	background-position:0px -10px ;
+}
+#showDiv .lightgreen{
+	background: url("../images/light_green.png");
+	background-position:0px -10px ;
+}
+
+#showDiv .shNodediv .toptext{
+	width:120px;
+	height:20px;
+	margin-top: 0px;
+	color: white;
+	line-height: 20px;
+	text-align: center;
+	font-size: 13px;
+}
+#showDiv .shNodediv .bottomtext{
+	width:120px;
+	height:20px;
+	margin-top: 18px;
+	color: white;
+	line-height: 20px;
+	text-align: center;
+	font-size: 13px;
+}
+#showDiv table{
+	border-collapse:collapse; 
+	border-spacing:0; 
+}
+#showDiv th,td{
+	padding: 0; 
+}
+
+
+.shgcNodeStart{
+	height: 65px;
+	width: 68px;
+	position: relative;
+}
+.bgstart{
+	margin-top:8px;
+	height: 12px;
+	width: 16px;
+	background: url("../images/lc_start_g.png") no-repeat;
+	position: absolute;
+	left: 24px;
+}
+
+.bg{
+	margin-top:8px;
+	height: 12px;
+	width: 100%;
+	float:left;
+	background: url("../images/lc_cen.png") repeat-x;
+}
+
+.bg_g{
+	margin-top:8px;
+	height: 12px;
+	width: 100%;
+	float:left;
+	background: url("../images/lc_cen_g.png") repeat-x;
+}
+.shortbg_g{
+	margin-top:8px;
+	height: 12px;
+	width: 56px;
+	float:left;
+	background: url("../images/lc_cen_g.png") repeat-x;
+	position: absolute;
+	top:0px;
+	left:0px;
+	z-index: 99;
+}
+.shgcNode{
+	height: 65px;
+	width: 120px;
+	position: relative;
+}
+.shgcNodeEnd{
+	position: relative;
+	height: 65px;
+	width: 24px;
+}
+/* 完成的节点 */
+.nodeInfo_A{
+	height:24px;
+	width: 24px;
+	background: url("../images/nodeA.png") no-repeat;
+	position: absolute;
+	top:2px;
+	left:0px;
+	z-index: 999;
+}
+/*延时的节点*/
+.nodeInfo_B{
+	height:24px;
+	width: 24px;
+	background: url("../images/nodeB.png") no-repeat;
+	position: absolute;
+	top:2px;
+	left:0px;
+	z-index: 999;
+}
+/*正在审核的节点*/
+.nodeInfo_C{
+	height:24px;
+	width: 24px;
+	background: url("../images/nodeC.png") no-repeat;
+	position: absolute;
+	top:2px;
+	left:0px;
+	z-index: 999;
+}
+/*尚未开启的节点*/
+.nodeInfo_D{
+	height:24px;
+	width: 24px;
+	background: url("../images/nodeD.png") no-repeat;
+	position: absolute;
+	top:2px;
+	left:0px;
+	z-index: 999;
+}
+.bgNodeEnd{
+	position: relative;
+	height: 65px;
+	width: 61px;;
+}
+.bgend{
+	margin-top:8px;
+	height: 12px;
+	width: 16px;
+	float:left;
+	background: url("../images/lc_end.png") no-repeat;
+}
+.bgend_g{
+	margin-top:8px;
+	height: 12px;
+	width: 16px;
+	float:left;
+	background: url("../images/lc_end_g.png") no-repeat;
+}
+.shortbgend_g{
+	margin-top:8px;
+	height: 12px;
+	width: 16px;
+	float:left;
+	background: url("../images/lc_end_g.png") no-repeat;
+	position: absolute;
+	top:0px;
+	left:56px;
+	z-index: 999;
+}
+.nodetext{
+	width: 120px;
+	height: 40px;
+	line-height: 19px;
+	position: absolute;
+	top:25px;
+	left:-47px;
+	text-align: center;
+}

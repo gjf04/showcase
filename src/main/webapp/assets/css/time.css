@@ -1,0 +1,65 @@
+.timeshow{
+	position:fixed;
+	top: 150px;
+	right:20px;
+	width: 20px;
+	height: 20px;
+	z-index: 999998;
+	border: 1px solid #C0C0C0;
+	opacity:0.5;
+	overflow: hidden;
+}
+.timeshow .topDiv{
+	width:20px;
+	hieght:20px;
+	float: right;
+}
+.bottomDiv{
+	height:280px;
+	width:165px;
+/* 	margin-top: 20px; */
+
+}
+.bottomDiv .imgDiv{
+	float: left;
+	width: 20px;
+	height: 170px;
+	margin-top: 55px;
+	margin-left: 5px;
+	position: relative;
+}
+.bottomDiv .imgDiv .lineDiv{
+	width: 3px;
+	height: 170px;
+	background:url('../images/line.png')  repeat-x ;
+	margin-left: 9px;
+}
+.bottomDiv .imgDiv .pointDiv{
+	width:20px;
+	height: 20px;
+	position: absolute;
+	left: 0px;
+}
+.bottomDiv .imgDiv .haspoint{
+	background: url('../images/point1.png');
+}
+.bottomDiv .imgDiv .nopoint{
+	background: url('../images/point.png');
+}
+.bottomDiv .textDiv{
+	float: left;
+	width: 135px;
+	height: 170px;
+	margin-top: 55px;
+	margin-left: 5px;
+	position: relative;
+}
+.bottomDiv .textDiv .pointText{
+	width:135px;
+	height: 20px;
+	position: absolute;
+	left: 0px;
+	line-height: 20px;
+	text-align: right;
+	font-size: 13px;
+}

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.order.OrderFeedbackDao">
+  <resultMap id="orderFeedbackMap" type="OrderFeedback">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="customer_code" jdbcType="VARCHAR" property="customerCode" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="responsible_person" jdbcType="VARCHAR" property="responsiblePerson" />
+    <result column="responsible_person_id" jdbcType="INTEGER" property="responsiblePersonId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_id, customer_id, customer_code, customer_name, responsible_person, responsible_person_id, description,
+    created_at, updated_at, created_by, updated_by, remark,
+    is_delete
+  </sql>
+
+  <sql id="table">order_feedback</sql>
+
+  <select id="getById" parameterType="java.lang.Integer" resultMap="orderFeedbackMap">
+    select id,
+    <include refid="Base_Column_List" />
+    from <include refid="table"/>
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from <include refid="table"/>
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="OrderFeedback">
+    insert into <include refid="table"/> (id, order_id, customer_id, customer_code, customer_name,
+      responsible_person, responsible_person_id, description,
+      created_at, updated_at, created_by, 
+      updated_by, remark, is_delete
+      )
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER},  #{customerCode,jdbcType=VARCHAR},  #{customerName,jdbcType=VARCHAR},
+      #{responsiblePerson,jdbcType=VARCHAR}, #{responsiblePersonId,jdbcType=INTEGER},  #{description,jdbcType=VARCHAR},
+      #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, 
+      #{updatedBy,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 0
+      )
+  </insert>
+
+  <update id="update" parameterType="OrderFeedback">
+    update <include refid="table"/>
+    <set>
+      <if test="customerCode != null">
+        customer_code = #{customerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="responsiblePerson != null">
+        responsible_person = #{responsiblePerson},
+      </if>
+      <if test="responsiblePersonId != null">
+        responsible_person_id = #{responsiblePersonId},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <sql id="condition">
+    <where>
+      <if test="orderId!=null">
+        AND order_id = #{orderId}
+      </if>
+      <if test="customerId!=null">
+        AND customer_id = #{customerId}
+      </if>
+      <if test="customerName!=null">
+        AND customer_name = #{customerName}
+      </if>
+
+      <if test="responsiblePerson!=null">
+        AND responsible_person = #{responsiblePerson}
+      </if>
+      <if test="responsiblePersonId!=null">
+        AND responsible_person_id = #{responsiblePersonId}
+      </if>
+    </where>
+  </sql>
+
+  <select id="queryListBy" resultMap="orderFeedbackMap" parameterType="map">
+    SELECT id, <include refid="Base_Column_List"/>
+    FROM <include refid="table"/>
+    <include refid="condition"/>
+    ORDER BY id DESC
+    LIMIT #{start},#{size}
+  </select>
+
+  <select id="queryCountBy" resultType="Integer" parameterType="map">
+    SELECT COUNT(id)
+    FROM <include refid="table"/>
+    <include refid="condition"/>
+  </select>
+  
+</mapper>

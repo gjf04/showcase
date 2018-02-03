@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.salary.base.SalaryBaseRuleDao">
+  <resultMap id="salaryBaseRuleMap" type="SalaryBaseRule">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="post" jdbcType="VARCHAR" property="post" />
+    <result column="base" jdbcType="FLOAT" property="base" />
+    <result column="base_level" jdbcType="INTEGER" property="baseLevel" />
+    <result column="float_base" jdbcType="FLOAT" property="floatBase" />
+    <result column="float_proportion" jdbcType="VARCHAR" property="floatProportion" />
+    <result column="float_completion_rate" jdbcType="VARCHAR" property="floatCompletionRate" />
+    <result column="percentage_complete" jdbcType="FLOAT" property="percentageComplete" />
+    <result column="percentage_incomplete" jdbcType="FLOAT" property="percentageIncomplete" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, post, base, base_level, float_base, float_proportion, float_completion_rate, percentage_complete, percentage_incomplete,
+    created_at, updated_at, created_by, updated_by, remark,
+    is_delete
+  </sql>
+
+  <sql id="table">salary_base_rule</sql>
+
+  <select id="getById" parameterType="java.lang.Integer" resultMap="salaryBaseRuleMap">
+    select 
+    <include refid="Base_Column_List" />
+    from salary_base_rule
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from salary_base_rule
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="SalaryBaseRule">
+   INSERT INTO salary_base_rule(
+			id,
+			post,
+			base,
+			base_level,
+			float_base,
+			float_proportion,
+			float_completion_rate,
+			percentage_complete,
+			percentage_incomplete,
+			created_at,
+			updated_at,
+			created_by,
+			updated_by,
+			remark,
+			is_delete
+		) VALUES (
+			#{id},
+			#{post},
+			#{base},
+			#{baseLevel},
+			#{floatBase},
+			#{floatProportion},
+			#{floatCompletionRate},
+			#{percentageComplete},
+			#{percentageIncomplete},
+			#{createdAt},
+			#{updatedAt},
+			#{createdBy},
+			#{updatedBy},
+			#{remark},
+			0
+		)
+  </insert>
+
+  <update id="update" parameterType="SalaryBaseRule">
+    UPDATE salary_base_rule SET 	
+			post = #{post},
+			base = #{base},
+			base_level = #{baseLevel},
+			float_base = #{floatBase},
+			float_proportion = #{floatProportion},
+			float_completion_rate = #{floatCompletionRate},
+			percentage_complete = #{percentageComplete},
+			percentage_incomplete = #{percentageIncomplete},
+			updated_at = #{updatedAt},
+			updated_by = #{updatedBy},
+			remark = #{remark},
+			is_delete = 0
+		WHERE id = #{id}
+  </update>
+  <update id="deleteById" parameterType="SalaryBaseRule">
+    UPDATE salary_base_rule SET 	
+			is_delete = 1
+		WHERE id = #{id}
+  </update>
+  <sql id="condition">
+    <where>
+    is_delete=0
+      <if test="post!=null">
+        AND post = #{post}
+      </if>
+    </where>
+  </sql>
+
+  <select id="queryListBy" resultMap="salaryBaseRuleMap" parameterType="map">
+    SELECT <include refid="Base_Column_List"/>
+    FROM <include refid="table"/>
+    <include refid="condition"/>
+    ORDER BY id DESC
+    LIMIT #{start},#{size}
+  </select>
+
+  <select id="queryCountBy" resultType="Integer" parameterType="map">
+    SELECT COUNT(id)
+    FROM <include refid="table"/>
+    <include refid="condition"/>
+  </select>
+  
+</mapper>

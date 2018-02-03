@@ -1,0 +1,68 @@
+﻿﻿.easyui-accordion ul{list-style-type:none;margin:0px; padding:10px;}
+.easyui-accordion ul li{padding:0px;}
+.easyui-accordion ul li a{line-height:24px;}
+.easyui-accordion ul li div{margin:2px 0px;padding-left:10px;padding-top:2px;}
+.easyui-accordion ul li div.hover{border:1px dashed #99BBE8; background:#E0ECFF;cursor:pointer;}
+.easyui-accordion ul li div.hover a{color:#416AA3;}
+.easyui-accordion ul li div.selected{border:1px solid #99BBE8; background:#E0ECFF;cursor:default;}
+.easyui-accordion ul li div.selected a{color:#416AA3; font-weight:bold;}
+
+.myMenuSelected{ background:#00FF66;cursor:default;}
+.myMenuHover{ background:#E0ECFF;cursor:pointer;}
+.myMenudiv{
+	width:80px;
+	height:94px;
+	float:left;
+	padding:3px;
+}
+.myMenuimg{
+	width:70px;
+	height:86px;
+	border : 0px;
+}
+		
+.imgbg{background: url(../images/13.png) no-repeat center center;}
+.imghover{background: url(../images/12.png) no-repeat center center;}
+
+.hoverbgcolor{ background-color:#33CCCC}
+
+.titlediv_l{
+	width: 90px;
+	height: 25px;
+	float: left;
+}
+
+.titlediv_s{
+	width: 60px;
+	height: 25px;
+	float: left;
+}
+
+.titleimgbgdiv{
+	width: 25px;
+	height: 25px;
+	float: left;
+}
+.titletextdiv_l{
+	width: 65px;
+	height: 25px;
+	float: left;
+	text-align: center;
+	line-height:25px;
+}
+.titletextdiv_s{
+	width: 35px;
+	height: 25px;
+	float: left;
+	text-align: center;
+	line-height:25px;
+}
+.titletextspan{
+	color:#254B90;
+	font-family: "微软雅黑", Arial, Helvetica, sans-serif;
+	font-weight :bold ; 
+	font-size: 14px;
+}
+
+
+.cs-tab-menu {width:120px;}

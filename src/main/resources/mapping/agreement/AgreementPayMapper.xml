@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.agreement.AgreementPayDao">
+  <resultMap id="agreementPayMap" type="com.admin.entity.agreement.AgreementPay">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="agree_id" property="agreeId" />
+    <result column="user_id" property="userId" />
+    <result column="user_name" property="userName"/>
+    <result column="remark" property="remark" />
+    <result column="should_pay" property="shouldPay" />
+    <result column="pay_amount" property="payAmount" />
+    <result column="pay_type" property="payType" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="table_name"> agreement_pay </sql>
+  
+  <sql id="Base_Column_List">
+    agree_id, user_id, user_name, remark, should_pay, pay_amount, pay_type, 
+    created_by, created_at, updated_by, updated_at
+  </sql>
+  
+  <select id="getAgreementPayList"  parameterType="Map"  resultMap="agreementPayMap">
+      SELECT id,<include refid="Base_Column_List"/>
+      FROM <include refid="table_name"/>
+      <include refid="where_sql"/>
+      Order By id DESC
+      LIMIT #{start},#{size}
+  </select>
+  
+  <select id="getAgreementPayCount"  parameterType="Map"  resultType="Integer">
+    SELECT COUNT(id)
+    FROM <include refid="table_name"/>
+    <include refid="where_sql"/>
+  </select>
+  
+  <sql id="where_sql">
+	  <where>
+	      <if test="agreeId != null and agreeId != ''">
+	          AND agree_id = #{agreeId}
+	      </if>
+	  </where>
+  </sql>
+  
+  <insert id="insertAgreementPay"  parameterType="com.admin.entity.agreement.AgreementPay">
+        insert into <include refid="table_name" /> 
+    	( <include refid="Base_Column_List" /> )
+        values
+        (
+	        #{agreeId,jdbcType=BIGINT},
+	        #{userId,jdbcType=BIGINT},
+	        #{userName,jdbcType=VARCHAR},
+	        #{remark,jdbcType=VARCHAR},
+	        #{shouldPay,jdbcType=DECIMAL},
+	        #{payAmount,jdbcType=DECIMAL},
+	        #{payType,jdbcType=INTEGER},
+            #{createdBy,jdbcType=VARCHAR},now(),
+            null,null
+        )
+    </insert>
+  
+  </mapper>

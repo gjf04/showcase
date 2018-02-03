@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.admin.dao.reports.ExpenseReportsDao">
+    <resultMap id="expenseReportsMap" type="com.admin.entity.reports.ExpenseReports">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="year" column="year"/>
+        <result property="month" column="month"/>
+        <result property="fuelCharge" column="fuel_charge"/>
+        <result property="busFee" column="bus_fee"/>
+        <result property="taxiFee" column="taxi_fee"/>
+        <result property="telephoneCharge" column="telephone_charge"/>
+        <result property="feteFee" column="fete_fee"/>
+        <result property="travellingExpenses" column="travelling_expenses"/>
+        <result property="marketingCosts" column="marketing_costs"/>
+        <result property="allCosts" column="all_costs"/>
+        <result property="enable" column="enable"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedBy" column="updated_by"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="columns">
+        name,year,month,fuel_charge,bus_fee,taxi_fee,telephone_charge,fete_fee,travelling_expenses,marketing_costs,all_costs,enable,created_by,created_at,updated_by,updated_at,remark
+    </sql>
+    <sql id="table">expense_reports</sql>
+
+    <select id="getById" resultMap="expenseReportsMap" parameterType="java.lang.Integer">
+        select id,<include refid="columns"/>
+        from <include refid="table"/>
+        where id = #{id}
+    </select>
+
+    <select id="getExpenseReportsListByPerson"  parameterType="Map"  resultMap="expenseReportsMap">
+        SELECT id,<include refid="columns"/>
+        FROM <include refid="table"/>
+        WHERE enable = 1
+        <include refid="expenseReportsQuery"/>
+        ORDER BY name,month
+        <if test="m!=null and n!=null">
+            Limit ${m},${n}
+        </if>
+    </select>
+
+    <sql id="expenseReportsQuery">
+        <if test="year != null and year != ''">
+            AND year = #{year}
+        </if>
+        <if test="year == null or year == ''">
+            AND year = DATE_FORMAT(NOW(), '%Y')
+        </if>
+        <if test="month != null and month != ''">
+            AND month = #{month}
+        </if>
+    </sql>
+
+    <select id="getExpenseReportsListByMonth"  parameterType="Map"  resultMap="expenseReportsMap">
+        SELECT month, sum(fuel_charge) fuelCharge, sum(bus_fee) busFee, sum(taxi_fee) taxiFee, sum(telephone_charge) telephoneCharge, sum(fete_fee) feteFee,
+        sum(travelling_expenses) travellingExpenses, sum(marketing_costs) marketingCosts, sum(all_costs) allCosts
+        FROM <include refid="table"/>
+        WHERE enable = 1
+        <include refid="expenseReportsQuery"/>
+        GROUP BY month
+        ORDER BY month ASC
+        <if test="m!=null and n!=null">
+            Limit ${m},${n}
+        </if>
+    </select>
+</mapper>

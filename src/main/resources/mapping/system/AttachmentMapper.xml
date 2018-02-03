@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.system.AttachmentDao">
+  <resultMap id="attachmentMap" type="Attachment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="file_code" jdbcType="VARCHAR" property="fileCode" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_type" jdbcType="INTEGER" property="fileType" />
+    <result column="relate_id" jdbcType="INTEGER" property="relateId" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    file_code, file_name, file_type, relate_id, url, created_at, updated_at, created_by, updated_by,
+    remark, is_delete
+  </sql>
+
+  <sql id="table">attachment</sql>
+
+  <select id="getById" parameterType="java.lang.Integer" resultMap="attachmentMap">
+    select id,
+    <include refid="Base_Column_List" />
+    from <include refid="table"/>
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getByRelateId" parameterType="java.lang.Integer" resultMap="attachmentMap">
+    select id,
+    <include refid="Base_Column_List" />
+    from <include refid="table"/>
+    where is_delete = 0 and relate_id = #{relateId,jdbcType=INTEGER}
+    ORDER BY id
+  </select>
+
+  <delete id="deleteById" parameterType="java.lang.Integer">
+    delete from attachment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="Attachment"  useGeneratedKeys="true" keyProperty="id">
+    insert into attachment (file_code, file_name,
+      file_type, relate_id, url, created_at,
+      updated_at, created_by, updated_by, 
+      remark, is_delete)
+    values (#{fileCode,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR},
+      #{fileType,jdbcType=INTEGER}, #{relateId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP},
+      #{updatedAt,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, #{updatedBy,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, 0)
+  </insert>
+
+  <update id="update" parameterType="Attachment">
+    update <include refid="table"/>
+    <set>
+      <if test="fileCode != null">
+        file_code = #{fileCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        file_type = #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  
+</mapper>

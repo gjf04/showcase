@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.admin.dao.system.ProspectDao">
+    <resultMap id="prospectMap" type="com.admin.entity.system.Prospect">
+        <id property="id" column="id"/>
+        <result property="customerName" column="customer_name"/>
+        <result property="prospectAddress" column="prospect_address"/>
+        <result property="name" column="name"/>
+        <result property="mobile" column="mobile"/>
+        <result property="prospectConfirmTime" column="prospect_confirm_time"/>
+        <result property="prospectStartTime" column="prospect_start_time"/>
+        <result property="prospectEndTime" column="prospect_end_time"/>
+        <result property="prospectName" column="prospect_name"/>
+        <result property="prospectContent" column="prospect_content"/>
+        <result property="prospectRequire" column="prospect_require"/>
+        <result property="status" column="status"/>
+        <result property="prospectFileAddress" column="prospect_file_address"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedBy" column="updated_by"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="columns">
+        customer_name,prospect_address,name,mobile,prospect_confirm_time,prospect_start_time,prospect_end_time,prospect_name,prospect_content,prospect_require,status,
+        prospect_file_address,created_by,created_at,updated_by,updated_at,remark
+    </sql>
+    <sql id="table">prospect</sql>
+
+    <select id="getById" resultMap="prospectMap" parameterType="java.lang.Integer">
+        select id,<include refid="columns"/>
+        from <include refid="table"/>
+        where id = #{id}
+    </select>
+
+    <select id="getProspectList"  parameterType="Map"  resultMap="prospectMap">
+        SELECT id,<include refid="columns"/>
+        FROM <include refid="table"/>
+        WHERE enable = 1
+        <include refid="prospectQuery"/>
+        Order By updated_at DESC
+        <if test="m!=null and n!=null">
+            Limit ${m},${n}
+        </if>
+    </select>
+
+    <sql id="prospectQuery">
+        <if test="customerName != null and customerName != ''">
+            AND customer_name = #{customerName}
+        </if>
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+    </sql>
+
+    <insert id="insert" parameterType="com.admin.entity.system.Prospect" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO <include refid="table"/>(<include refid="columns"/>)
+        VALUES(
+        #{customerName},
+        #{prospectAddress},
+        #{name},
+        #{mobile},
+        #{prospectConfirmTime},
+        #{prospectStartTime},
+        #{prospectEndTime},
+        #{prospectName},
+        #{prospectContent},
+        #{prospectRequire},
+        #{status},
+        #{prospectFileAddress},
+        #{createdBy},
+        now(),
+        #{updatedBy},
+        now(),
+        #{remark}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.admin.entity.system.Prospect">
+        update <include refid="table"/>
+        <set>
+            <if test="customerName != null">
+                customer_name = #{customerName},
+            </if>
+            <if test="prospectAddress != null">
+                prospect_address = #{prospectAddress},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile},
+            </if>
+            <if test="prospectConfirmTime != null">
+                prospect_confirm_time = #{prospectConfirmTime},
+            </if>
+            <if test="prospectStartTime != null">
+                prospect_start_time = #{prospectStartTime},
+            </if>
+            <if test="prospectEndTime != null">
+                prospect_end_time = #{prospectEndTime},
+            </if>
+            <if test="prospectName != null">
+                prospect_name = #{prospectName},
+            </if>
+            <if test="prospectContent != null">
+                prospect_content = #{prospectContent},
+            </if>
+            <if test="prospectRequire != null">
+                prospect_require = #{prospectRequire},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="prospectFileAddress != null">
+                prospect_file_address = #{prospectFileAddress},
+            </if>
+            <if test="updatedBy != null">
+                updated_by = #{updatedBy},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            updated_at = now()
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+</mapper>

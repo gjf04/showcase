@@ -1,0 +1,501 @@
+/* CSS Document */
+* {
+	margin: 0;
+	padding: 0
+}
+
+body {
+	font-size: 12px;
+	line-height: 20px;
+	font: 12px/1.5 tahoma,arial;
+	background-color: #e2e9ea;
+	color: #333
+}
+
+a {
+	color: #333;
+	text-decoration: none
+}
+
+a:hover {
+	color: #903;
+	text-decoration: underline
+}
+
+.clear {
+	clear: both
+}
+
+ul {
+	list-style: none
+}
+
+img {
+	border: none
+} 
+  /*login*/
+.managelogin {
+	background-color: #fff;
+}
+.login-all{
+	width:100%;
+	height: 420px;
+	margin-top:5%;
+	padding-top:30px;
+	background:#f2f1f1 url(../images/loginbg.jpg) no-repeat;
+	background-position: center;
+	margin:5% auto;	
+	}
+.login {
+	background:#fff;
+	width:340px;
+	height: 310px;
+	padding: 20px 45px;
+	border-radius: 10px;	
+	margin:10px auto;	
+}
+.loginfrom {
+	width: 300px;
+	margin: 0 auto;
+	color: #444;
+	line-height: 32px;
+	padding-top: 10px;
+	font-size: 14px;
+}
+.loginfrom input {
+	background: url(../images/linput.jpg);
+	height: 24px;
+	width: 200px;
+	border: 1px solid #999;
+	/*margin-left: 5px;*/
+	padding: 0 5px;
+}
+.loginfrom input {
+	vertical-align: middle
+}
+.loginfrom li{
+	padding:10px 10px 0 15px ;
+}
+.loginbtn{
+	width: 275px;
+	 margin: 0 auto;
+	 padding-top:15px;
+}
+.loginfrom .checkbox{
+	width:15px;
+	height:15px;
+}
+.logincopy {
+	width: 100%;
+	text-align: center;	
+	color: #666
+}
+/*
+.loginbtn {
+	width: 300px;
+	margin: 20px auto;
+}
+
+.loginbtn li {
+	float: left;
+	margin: 0px 10px
+}
+
+
+.loginfrom  .yzm {
+	width: 100px;
+}
+*/
+
+  /**/
+.top {
+	background: url(../images/topbg.jpg);
+	color: #fff;
+	min-width: 1024px;
+}
+
+.top a {
+	color: #fff;
+	padding: 0px 5px
+}
+
+.logotitle {
+	background: url(../images/top.jpg) no-repeat;
+	height: 80px
+}
+
+.to3dcbd {
+	text-align: right;
+	padding-right: 20px;
+}
+
+.nav {
+	float: left;
+	padding-left: 160px;
+	padding-top: 48px;
+}
+
+.nav li {
+	float: left;
+	background: url(../images/navbg.jpg) no-repeat;
+	width: 100px;
+	height: 34px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 35px;
+}
+
+.welcomequit {
+	float: right;
+	padding-top: 55px;
+	padding-right: 20px;
+}
+
+.nav  .current {
+	background: url(../images/current.jpg) no-repeat;
+	width: 99px;
+	height: 34px;
+}
+
+.current a {
+	color: #1361a6
+}
+ 
+ 
+  /*main*/
+.main {
+	margin-top: 5px;
+	min-width: 1024px;
+}
+.left{ float:left;width:160px; background-color:#fff;margin-right:5px;} 
+  .left dl{ border:1px solid #c3d2d8; }
+  .lefttitle{ background-image:url(../images/lefttopbg.jpg); height:32px; padding-left:40px; line-height:32px; color:#fff; font-weight:bold; font-size:14px;}
+  
+  .left dt{ background-color:#dbefff; height:30px; line-height:30px; color:#1361a6; font-weight:bold; padding-left:20px; }
+  .left dd{ line-height:26px; padding-left:30px; background:url(../images/sanjiao.jpg) no-repeat 20px 13px;}
+  
+    
+
+.left {
+	float: left;
+	width: 160px;
+	background-color: #fff;
+	margin-right: 5px;
+}
+
+.left dl {
+	border: 1px solid #c3d2d8;
+}
+
+.lefttitle {
+	background-image: url(../images/lefttopbg.jpg);
+	height: 32px;
+	padding-left: 40px;
+	line-height: 32px;
+	color: #fff;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.left dt {
+	background-color: #dbefff;
+	height: 30px;
+	line-height: 30px;
+	color: #1361a6;
+	font-weight: bold;
+	padding-left: 20px;
+}
+
+.left dd {
+	line-height: 26px;
+	padding-left: 30px;
+	background: url(../images/sanjiao.jpg) no-repeat 20px 13px;
+}
+
+.right {
+	width: 1000px;
+	float: left;
+}
+
+.location {
+	border: 1px solid #c3d2d8;
+	height: 30px;
+	padding-left: 40px;
+	line-height: 30px;
+	color: #666;
+	margin-bottom: 5px;
+	background: url(../images/house.jpg) no-repeat #fff 5px 2px;
+}
+
+.mcontent {
+	background-color: #fff;
+	border: 1px solid #c3d2d8;
+}
+
+.welcome {
+	background-color: #f3f7ff;
+	border-bottom: 1px  solid #fff;
+	height: 35px;
+	line-height: 35px;
+	padding-left: 15px;
+	color: #666
+}
+
+.welcome strong {
+	color: #f30
+}
+
+.msystem {
+	border-top: 1px solid #d0daf0;
+	padding: 20px;
+	line-height: 30px;
+}
+
+.msystem a {
+	color: #1361a6;
+	font-weight: normal
+}
+
+.msystem dt {
+	border-bottom: 1px dotted #ccc;
+	font-size: 12px;
+	font-weight: bold;
+	color: #1361a6;
+	height: 30px;
+}
+
+.msystem dd {
+	margin-bottom: 10px;
+	padding: 10px;
+}
+
+.msystem dd strong {
+	color: #f30
+}
+
+/**/
+.search {
+	height: 40px;
+	margin: 0px 10px;
+	border: 1px solid #fdbd7d;
+	line-height: 40px;
+	padding-left: 15px;
+	background-color: #fffced
+}
+
+.searchbtn {
+	background: url(../images/edit.jpg);
+	width: 60px;
+	height: 21px;
+	border: none;
+	cursor: pointer;
+	line-height: 20px;
+}
+
+.searchinput {
+	height: 18px;
+	width: 200px;
+}
+
+.list {
+	min-height: 550px;
+	color: #333
+}
+
+.currenttr {
+	background-color: #eef3f7;
+}
+
+.rnav {
+	padding: 10px;
+}
+
+.rnav li {
+	background: url(../images/rnavbg2.jpg) no-repeat;
+	height: 29px;
+	width: 94px;
+	float: left;
+	margin: 5px;
+	line-height: 26px;
+	text-align: center;
+	font-weight: bold
+}
+
+.rnav  a {
+	color: #055aa5
+}
+
+.list {
+	margin: 10px;
+}
+
+.list thead {
+	background-color: #eef3f7;
+}
+
+.list thead td {
+	border-bottom: 1px solid #d6dde3;
+	height: 30px;
+	font-weight: bold
+}
+
+.list td {
+	padding-left: 15px;
+	border-bottom: 1px solid #eee;
+	height: 30px;
+}
+
+.edit a{
+	display: block;
+	background: url(../images/edit.jpg);
+	width: 60px;
+	height: 21px;
+	text-align: center;
+	line-height: 20px;
+	float: left;
+	margin: 5px 20px 5px 0px;
+}
+
+.edit hr {
+	border: none;
+	clear: both;
+	background: none
+}
+
+.tfoot {
+	text-align: center;
+	height: 40px;
+	padding-top: 20px;
+}
+
+.tfoot a {
+	border: 1px solid #ccc;
+	padding: 2px 5px;
+	background-color: #eee;
+	margin: 0px 5px
+}
+
+.tfoot strong {
+	color: #f30;
+	font-weight: bold
+}
+
+.tfoot .pagecur {
+	background-color: #2966a7;
+	font-size: 12px;
+	font-weight: bold;
+	color: #fff
+}
+
+.newedit {
+	margin: 10px 15px;
+	font-size: 14px;
+	border: 1px solid #ddd;
+	padding: 15px;
+}
+
+.newedit textarea {
+	font-size: 14px;
+	line-height: 22px;
+}
+
+.newedit td {
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 1px dotted #eee
+}
+
+.tdright {
+	text-align: right;
+	padding-right: 5px;
+}
+
+.newedit input {
+	border: 1px solid #ccc;
+	height: 24px;
+}
+
+.newedit  .upfile {
+	width: 60px;
+	border-bottom: 2px #404040 solid;
+	border-right: 2px #404040 solid;
+	background-color: #d4d0c8
+}
+
+.newedit textarea {
+	border: 1px solid #ccc;
+}
+
+.newedit span {
+	color: #999;
+	font-size: 12px;
+	padding-left: 10px;
+}
+
+.applyshow span {
+	color: #333;
+	font-size: 14px;
+}
+
+.newedit em {
+	color: #f30;
+	font-style: normal
+}
+
+.naebtn {
+	padding-top: 30px;
+	padding-left: 120px;
+}
+
+.naebtn  input {
+	background: url(../images/rnavbg.jpg) no-repeat  0px 5px;
+	height: 35px;
+	width: 92px;
+	color: #fff;
+	border: none;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 20px;
+	cursor: pointer
+}
+/**/
+.cname {
+	position: absolute;
+	top: 20px;
+	left: 10px;
+	background: url(../../Map/classimg.png);
+	width: 80px;
+	height: 22px;
+	border: 2px solid #fff;
+	cursor: move;
+	text-align: center;
+	padding-top: 65px;
+}
+
+.cname strong {
+	background-color: #fff;
+	padding: 2px;
+	font-size: 12px;
+	display: block
+}
+
+.kf {
+	background: url(../../Map/n1.png);
+	top: 500px;
+	left: 500px;
+	width: 72px;
+	height: 161px;
+	border: 2px solid #ccc;
+	padding-top: 0px;
+}
+
+/*弹窗*/
+.popup{
+	width: 700px;
+	padding: 20px;
+	box-shadow: 5px 5px 5px #ccc;
+	z-index: 2;
+	display: flex;
+	align-self:center
+}

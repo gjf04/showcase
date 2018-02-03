@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias alias="Attachment" type="com.admin.entity.system.Attachment"/>
+        <typeAlias alias="Department" type="com.admin.entity.system.Department"/>
+        <typeAlias alias="Notice" type="com.admin.entity.system.Notice"/>
+        <typeAlias alias="Prospect" type="com.admin.entity.system.Prospect"/>
+        <typeAlias alias="ResourceInfo" type="com.admin.entity.system.ResourceInfo"/>
+        <typeAlias alias="Role" type="com.admin.entity.system.Role"/>
+        <typeAlias alias="RoleResource" type="com.admin.entity.system.RoleResource"/>
+        <typeAlias alias="SysLog" type="com.admin.entity.system.SysLog"/>
+        <typeAlias alias="UserDepartment" type="com.admin.entity.system.UserDepartment"/>
+        <typeAlias alias="UserInfo" type="com.admin.entity.system.UserInfo"/>
+        <typeAlias alias="UserRole" type="com.admin.entity.system.UserRole"/>
+
+
+        <typeAlias alias="Customer" type="com.admin.entity.customer.Customer"/>
+        <typeAlias alias="CustomerContact" type="com.admin.entity.customer.CustomerContact"/>
+        <typeAlias alias="CustomerFeedback" type="com.admin.entity.customer.CustomerFeedback"/>
+
+        <typeAlias alias="Orders" type="com.admin.entity.order.Orders"/>
+        <typeAlias alias="OrderFeedback" type="com.admin.entity.order.OrderFeedback"/>
+        
+        <typeAlias alias="SalaryBaseRule" type="com.admin.entity.salary.base.SalaryBaseRule"/>
+
+        <typeAlias alias="Appraisal" type="com.admin.entity.appraisal.Appraisal"/>
+        <typeAlias alias="AppraissalUser" type="com.admin.entity.appraisal.AppraisalUser"/>
+
+    </typeAliases>
+</configuration>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.agreement.AgreementInfoDao">
+  <resultMap id="agreementInfoMap" type="com.admin.entity.agreement.AgreementInfo">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="agree_sn" property="agreeSn" jdbcType="VARCHAR" />
+    <result column="first_party" property="firstParty" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="BIGINT" />
+    <result column="contact_id" property="contactId" jdbcType="BIGINT" />
+    <result column="contact_name" property="contactName" jdbcType="VARCHAR" />
+    <result column="service_life" property="serviceLife" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="hardware_all" property="hardwareAll" jdbcType="DECIMAL" />
+    <result column="install_all" property="installAll" jdbcType="DECIMAL" />
+    <result column="service_all" property="serviceAll" jdbcType="DECIMAL" />
+    <result column="expenses_all" property="expensesAll" jdbcType="DECIMAL" />
+    <result column="payables_all" property="payablesAll" jdbcType="DECIMAL" />
+    <result column="service_year_all" property="serviceYearAll" jdbcType="DECIMAL" />
+    <result column="service_month" property="serviceMonth" jdbcType="INTEGER" />
+    <result column="service_day" property="serviceDay" jdbcType="INTEGER" />
+    <result column="agreement_amount" property="agreementAmount" jdbcType="DECIMAL" />
+    <result column="agreement_amount_upper" property="agreementAmountUpper" jdbcType="VARCHAR"/>
+    <result column="first_ratio" property="firstRatio" jdbcType="DECIMAL"/>
+    <result column="last_ratio" property="lastRatio" jdbcType="DECIMAL"/>
+    <result column="repair_years" property="repairYears" jdbcType="INTEGER" />
+    <result column="approval_status" property="approvalStatus" jdbcType="INTEGER" />
+    <result column="refuse_info" property="refuseInfo" jdbcType="VARCHAR" />
+    <result column="agree_date" property="agreeDate" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="table_name"> agreement_info </sql>
+  
+  <sql id="Base_Column_List">
+    agree_sn, first_party, customer_id, contact_id, contact_name, service_life, project_name, 
+    hardware_all, install_all, service_all, expenses_all, payables_all, service_year_all, 
+    service_month, service_day, agreement_amount, agreement_amount_upper,first_ratio,last_ratio,
+    repair_years, approval_status, refuse_info, agree_date,
+    created_by, created_at, updated_by, updated_at, remark
+  </sql>
+  
+  <select id="getAgreementList"  parameterType="Map"  resultMap="agreementInfoMap">
+      SELECT id,<include refid="Base_Column_List"/>
+      FROM <include refid="table_name"/>
+      <include refid="where_sql"/>
+      Order By id DESC
+    LIMIT #{start},#{size}
+  </select>
+
+  <select id="getAgreementListCount"  parameterType="Map"  resultType="Integer">
+    SELECT COUNT(id)
+    FROM <include refid="table_name"/>
+    <include refid="where_sql"/>
+  </select>
+  
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="agreementInfoMap">
+    select 
+    id, <include refid="Base_Column_List" />
+    from <include refid="table_name" />
+    where id = #{id}
+  </select>
+
+  <sql id="where_sql">
+	  <where>
+	      <if test="approvalStatus != null and approvalStatus != ''">
+	          AND approval_status = #{approvalStatus}
+	      </if>
+	       <if test="firstParty != null and firstParty != ''">
+	          AND first_party = #{firstParty}
+	      </if>
+	      <if test="customerName != null and customerName != ''">
+	          AND customer_name = #{customerName}
+	      </if>
+	      <if test="customerId != null and customerId != ''">
+	          AND customer_id = #{customerId}
+	      </if>
+	      <if test="agreeDate != null and agreeDate != ''">
+	          AND agree_date like concat('%', #{agreeDate}, '%') 
+	      </if>
+	  </where>
+  </sql>
+  
+  <delete id="deleteById" parameterType="java.lang.Integer">
+    delete from <include refid="table_name" />
+    where id = #{id}
+  </delete>
+  
+  <insert id="insert" parameterType="com.admin.entity.agreement.AgreementInfo" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    insert into <include refid="table_name" /> 
+    ( <include refid="Base_Column_List" /> )
+    values (#{agreeSn,jdbcType=VARCHAR}, #{firstParty,jdbcType=VARCHAR}, 
+      #{customerId,jdbcType=BIGINT}, #{contactId,jdbcType=BIGINT}, #{contactName,jdbcType=VARCHAR}, 
+      #{serviceLife,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{hardwareAll,jdbcType=DECIMAL}, 
+      #{installAll,jdbcType=DECIMAL}, #{serviceAll,jdbcType=DECIMAL}, #{expensesAll,jdbcType=DECIMAL}, 
+      #{payablesAll,jdbcType=DECIMAL}, #{serviceYearAll,jdbcType=DECIMAL}, #{serviceMonth,jdbcType=INTEGER}, 
+      #{serviceDay,jdbcType=INTEGER}, #{agreementAmount,jdbcType=DECIMAL}, #{agreementAmountUpper,jdbcType=VARCHAR}, 
+      #{firstRatio,jdbcType=DECIMAL},#{lastRatio,jdbcType=DECIMAL},#{repairYears,jdbcType=INTEGER}, 
+      #{approvalStatus,jdbcType=INTEGER}, #{refuseInfo,jdbcType=VARCHAR}, #{agreeDate,jdbcType=TIMESTAMP}, 
+      #{createdBy,jdbcType=VARCHAR}, now(), #{updatedBy,jdbcType=VARCHAR}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <update id="updateById" parameterType="com.admin.entity.agreement.AgreementInfo">
+    update <include refid="table_name" />
+    <set>
+      <if test="agreeSn != null" >
+        agree_sn = #{agreeSn,jdbcType=VARCHAR},
+      </if>
+      <if test="firstParty != null" >
+        first_party = #{firstParty,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=BIGINT},
+      </if>
+      <if test="contactId != null" >
+        contact_id = #{contactId,jdbcType=BIGINT},
+      </if>
+      <if test="contactName != null" >
+        contact_name = #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLife != null" >
+        service_life = #{serviceLife,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="hardwareAll != null" >
+        hardware_all = #{hardwareAll,jdbcType=DECIMAL},
+      </if>
+      <if test="installAll != null" >
+        install_all = #{installAll,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceAll != null" >
+        service_all = #{serviceAll,jdbcType=DECIMAL},
+      </if>
+      <if test="expensesAll != null" >
+        expenses_all = #{expensesAll,jdbcType=DECIMAL},
+      </if>
+      <if test="payablesAll != null" >
+        payables_all = #{payablesAll,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceYearAll != null" >
+        service_year_all = #{serviceYearAll,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceMonth != null" >
+        service_month = #{serviceMonth,jdbcType=INTEGER},
+      </if>
+      <if test="serviceDay != null" >
+        service_day = #{serviceDay,jdbcType=INTEGER},
+      </if>
+      <if test="agreementAmount != null" >
+        agreement_amount = #{agreementAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="agreementAmountUpper != null" >
+        agreement_amount_upper = #{agreementAmountUpper,jdbcType=VARCHAR},
+      </if>
+      <if test="firstRatio != null" >
+        first_ratio = #{firstRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="lastRatio != null" >
+        last_ratio = #{lastRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="repairYears != null" >
+        repair_years = #{repairYears,jdbcType=INTEGER},
+      </if>
+      <if test="approvalStatus != null" >
+        approval_status = #{approvalStatus,jdbcType=BIT},
+      </if>
+      <if test="refuseInfo != null" >
+        refuse_info = #{refuseInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="agreeDate != null" >
+        agree_date = #{agreeDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedAt != null" >
+        updated_at = now(),
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="deleteAgreementInfo">
+		delete  from  <include refid="table_name" /> where id = #{agreementInfoId}
+	</delete>
+  </mapper>

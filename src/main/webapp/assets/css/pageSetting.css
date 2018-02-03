@@ -1,0 +1,9 @@
+.unlocked{
+	background: url("../images/lock.jpg") no-repeat 0 0;
+}
+.locked{
+	background: url("../images/lock.jpg") 100% 0%;
+}
+.centerDiv{
+	margin-left: 102px;
+}

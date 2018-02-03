@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.agreement.AgreementGoodsDao">
+  <resultMap id="agreementGoodsMap" type="com.admin.entity.agreement.AgreementGoods">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="agreement_id" property="agreementId" jdbcType="BIGINT" />
+    <result column="system_name" property="systemName" jdbcType="VARCHAR" />
+    <result column="hardware_name" property="hardwareName" jdbcType="VARCHAR" />
+    <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="hardware_amount" property="hardwareAmount" jdbcType="DECIMAL" />
+    <result column="service_amount" property="serviceAmount" jdbcType="DECIMAL" />
+    <result column="all_amount" property="allAmount" jdbcType="DECIMAL" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="table_name"> agreement_goods </sql>
+  
+  <sql id="Base_Column_List">
+    agreement_id, system_name, hardware_name, goods_num, price, hardware_amount, 
+    service_amount, all_amount, created_by, created_at, updated_by, updated_at, remark
+  </sql>
+  
+  <select id="getAgreementGoodsList"  parameterType="Map"  resultMap="agreementGoodsMap">
+      SELECT id,<include refid="Base_Column_List"/>
+      FROM <include refid="table_name"/>
+      <include refid="where_sql"/>
+      Order By id DESC
+  </select>
+  
+  <sql id="where_sql">
+	  <where>
+	      <if test="agreementId != null and agreementId != ''">
+	          AND agreement_id = #{agreementId}
+	      </if>
+	  </where>
+  </sql>
+  
+  <delete id="deleteByAgreementId" parameterType="java.lang.Integer">
+    delete from <include refid="table_name" />
+    where agreement_id = #{agreementId}
+  </delete>
+  
+  <insert id="insertAgreementGoodsBatch"  parameterType="ArrayList">
+        insert into <include refid="table_name" /> 
+    	( <include refid="Base_Column_List" /> )
+        values
+        <foreach collection="list" item="obj" index="index" separator="," >
+        (
+	        #{obj.agreementId},
+	        #{obj.systemName},
+	        #{obj.hardwareName},
+	        #{obj.goodsNum},
+	        #{obj.price},
+	        #{obj.hardwareAmount},
+	        #{obj.serviceAmount},
+	        #{obj.allAmount},
+            #{obj.createdBy},now(),
+            null,null,null
+        )
+        </foreach>  
+    </insert>
+  
+  </mapper>

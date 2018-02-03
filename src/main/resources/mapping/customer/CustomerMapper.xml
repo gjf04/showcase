@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.customer.CustomerDao">
+  <resultMap id="customerMap" type="Customer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="customer_code" jdbcType="VARCHAR" property="customerCode" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="type_code" jdbcType="VARCHAR" property="typeCode" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="fax" jdbcType="VARCHAR" property="fax" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="manager" jdbcType="VARCHAR" property="manager" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="dock_department" jdbcType="VARCHAR" property="dockDepartment" />
+    <result column="dock_person" jdbcType="VARCHAR" property="dockPerson" />
+    <result column="dock_contact" jdbcType="VARCHAR" property="dockContact" />
+    <result column="relate_department" jdbcType="VARCHAR" property="relateDepartment" />
+    <result column="relate_person" jdbcType="VARCHAR" property="relatePerson" />
+    <result column="relate_contact" jdbcType="VARCHAR" property="relateContact" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="responsible_person" jdbcType="VARCHAR" property="responsiblePerson" />
+    <result column="responsible_person_id" jdbcType="INTEGER" property="responsiblePersonId" />
+    <result column="assist_person" jdbcType="VARCHAR" property="assistPerson" />
+    <result column="assist_person_id" jdbcType="INTEGER" property="assistPersonId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="draft" jdbcType="INTEGER" property="draft" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, customer_code, customer_name, type_code, type_name, phone, fax, address, url, 
+    manager, contact, dock_department, dock_person, dock_contact, relate_department,
+    relate_person, relate_contact, created_at, updated_at, created_by, updated_by, remark, 
+    is_delete, responsible_person, responsible_person_id, assist_person, assist_person_id,
+    status,draft
+  </sql>
+
+  <sql id="table">customer</sql>
+
+  <select id="getById" parameterType="java.lang.Integer" resultMap="customerMap">
+    select 
+    <include refid="Base_Column_List" />
+    from <include refid="table"/>
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from <include refid="table"/>
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Customer"  useGeneratedKeys="true" keyProperty="id">
+    insert into <include refid="table"/> (customer_code, customer_name,
+      type_code, type_name, phone, 
+      fax, address, url, 
+      manager, contact,
+      dock_department, dock_person, dock_contact, 
+      relate_department, relate_person, relate_contact, 
+      created_at, updated_at, created_by, 
+      updated_by, remark, is_delete,
+      responsible_person, responsible_person_id, assist_person, assist_person_id,
+    status,draft
+      )
+    values (#{customerCode,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR},
+      #{typeCode,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{fax,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{manager,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR},
+      #{dockDepartment,jdbcType=VARCHAR}, #{dockPerson,jdbcType=VARCHAR}, #{dockContact,jdbcType=VARCHAR}, 
+      #{relateDepartment,jdbcType=VARCHAR}, #{relatePerson,jdbcType=VARCHAR}, #{relateContact,jdbcType=VARCHAR}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, 
+      #{updatedBy,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT},
+      #{responsiblePerson}, #{responsiblePersonId}, #{assistPerson}, #{assistPersonId},
+    #{status}, #{draft}
+      )
+  </insert>
+
+  <update id="update" parameterType="Customer">
+    update <include refid="table"/>
+    <set>
+      <if test="customerCode != null">
+        customer_code = #{customerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null">
+        type_code = #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null">
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+
+      <if test="manager != null">
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="dockDepartment != null">
+        dock_department = #{dockDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="dockPerson != null">
+        dock_person = #{dockPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="dockContact != null">
+        dock_contact = #{dockContact,jdbcType=VARCHAR},
+      </if>
+      <if test="relateDepartment != null">
+        relate_department = #{relateDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="relatePerson != null">
+        relate_person = #{relatePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="relateContact != null">
+        relate_contact = #{relateContact,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="responsiblePerson != null">
+        responsible_person = #{responsiblePerson},
+      </if>
+      <if test="responsiblePersonId != null">
+        responsible_person_id = #{responsiblePersonId},
+      </if>
+      <if test="assistPerson != null">
+        assist_person = #{assistPerson},
+      </if>
+      <if test="assistPersonId != null">
+        assist_person_id = #{assistPersonId},
+      </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
+      <if test="draft != null">
+        draft = #{draft},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateToOpenSea" parameterType="Customer">
+    update <include refid="table"/>
+    <set>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+        responsible_person = null,
+        responsible_person_id = null,
+        assist_person = null,
+        assist_person_id = null,
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <sql id="condition">
+    <where>
+      <if test="customerName!=null">
+        AND customer_name = #{customerName}
+      </if>
+      <if test="phone!=null">
+        AND phone = #{phone}
+      </if>
+
+      <if test="manager!=null">
+        AND manager = #{manager}
+      </if>
+      <if test="responsiblePerson!=null">
+        AND responsible_person = #{responsiblePerson}
+      </if>
+      <if test="responsiblePersonId!=null">
+        AND responsible_person_id = #{responsiblePersonId}
+      </if>
+      <if test="assistPerson!=null">
+        AND assist_person = #{assistPerson}
+      </if>
+      <if test="assistPersonId!=null">
+        AND assist_person_id = #{assistPersonId}
+      </if>
+      <if test="createdAtStart !=null and createdAtStart != ''">
+        AND <![CDATA[created_at >= #{createdAtStart}]]>
+      </if>
+      <if test="createdAtEnd !=null and createdAtEnd != ''">
+        AND <![CDATA[created_at <= #{createdAtEnd}]]>
+      </if>
+      <if test="status!=null">
+        AND status = #{status}
+      </if>
+      <if test="draft!=null">
+        AND draft = #{draft}
+      </if>
+    </where>
+  </sql>
+
+  <select id="queryListBy" resultMap="customerMap" parameterType="map">
+    SELECT <include refid="Base_Column_List"/>
+    FROM <include refid="table"/>
+    <include refid="condition"/>
+    ORDER BY id DESC
+    <if test="start != null and size != ''">
+    	LIMIT #{start},#{size}
+    </if>
+  </select>
+
+  <select id="queryCountBy" resultType="Integer" parameterType="map">
+    SELECT COUNT(id)
+    FROM <include refid="table"/>
+    <include refid="condition"/>
+  </select>
+  
+</mapper>
