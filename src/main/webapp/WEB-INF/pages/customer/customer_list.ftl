@@ -30,6 +30,7 @@
         <#--<a href="javascript:void(0);"  class="easyui-linkbutton" iconCls="icon-edit" plain="false" onclick="updateCustomer()">修改</a>-->
             <#if showCreateCustomerButton?? && showCreateCustomerButton == "YES">
                 <a href="javascript:void(0);"  class="easyui-linkbutton" iconCls="icon-add" plain="false" onclick="createCustomer()">新增</a>
+                <a href="javascript:void(0);"  class="easyui-linkbutton" iconCls="icon-edit" plain="false" onclick="updateCustomer()">修改</a>
                 <a href="javascript:void(0);"  class="easyui-linkbutton" iconCls="icon-excel" plain="false" onclick="openImportWin()">导入</a>
             </#if>
             <#if showDistributionCustomerButton?? && showDistributionCustomerButton == "YES">
@@ -43,7 +44,7 @@
             <!-- 更多按钮 -->
             <a href="javascript:void(0)" id="morefunction" class="easyui-menubutton"  plain="false"
                data-options="menu:'#functions',iconCls:'icon-task'">更多</a>
-            <div id="functions" style="width:150px;">
+            <div id="functions" style="width:100px;">
                 <div data-options="iconCls:'icon-edit'" onclick="auditCustomer(2)">审核通过</div>
                 <div data-options="iconCls:'icon-edit'" onclick="auditCustomer(3)">审核拒绝</div>
                 <div data-options="iconCls:'icon-edit'" onclick="updateCustomerToOpenSea()">移入公海</div>
@@ -246,6 +247,13 @@
                 </td>
             </tr>
 
+            <tr id="edit_button_tr" style="height: 25px;">
+                <td width="50%" colspan="5" align="center">
+                    <a href="javascript:void(0);"  class="easyui-linkbutton" iconCls="icon-ok" plain="false" onclick="submitEditForm(1)">保存提交</a>
+                    <a href="javascript:void(0);"  class="easyui-linkbutton" iconCls="icon-edit" plain="false" onclick="submitEditForm(0)">保存草稿</a>
+                </td>
+            </tr>
+
         </table>
     </fieldset >
 </div>
@@ -327,8 +335,6 @@
 </div>
 
 <script type="text/javascript">
-    var addCustomerDialog;
-    var customerEditDialog;
     var distributionCustomerDialog;
     var assistCustomerDialog;
     var customerFeedbackDialog;
@@ -429,6 +435,56 @@
         $('#emergency_mobile').textbox("setValue","");
         $("#addCustomerWin").window("open");
         $("#button_tr").show();
+        $("#edit_button_tr").hide();
+    }
+
+    //修改数据
+    function updateCustomer(){
+        var selectedRow = $('#dg').datagrid('getSelected');
+        $('#customerName').textbox("setValue",selectedRow.customerName);
+        $('#typeName').textbox("setValue",selectedRow.typeName);
+        $('#phone').textbox("setValue",selectedRow.phone);
+        $('#fax').textbox("setValue",selectedRow.fax);
+        $('#address').textbox("setValue",selectedRow.address);
+        $('#url').textbox("setValue",selectedRow.url);
+        $('#manager').textbox("setValue",selectedRow.manager);
+        $('#contact').textbox("setValue",selectedRow.contact);
+        $("#dockDepartment").textbox("setValue",selectedRow.dockDepartment);
+
+        $('#dockPerson').textbox("setValue",selectedRow.dockPerson);
+        $('#dockContact').textbox("setValue",selectedRow.dockContact);
+        $('#relateDepartment').textbox("setValue",selectedRow.relateDepartment);
+        $('#relatePerson').textbox("setValue",selectedRow.relatePerson);
+        $('#relateContact').textbox("setValue",selectedRow.relateContact);
+
+        $('#electric_contactName').textbox("setValue",selectedRow.electric.contactName);
+        $('#electric_contactPost').textbox("setValue",selectedRow.electric.contactPost);
+        $('#electric_phone').textbox("setValue",selectedRow.electric.phone);
+        $('#electric_mobile').textbox("setValue",selectedRow.electric.mobile);
+
+        $('#water_contactName').textbox("setValue",selectedRow.water.contactName);
+        $('#water_contactPost').textbox("setValue",selectedRow.water.contactPost);
+        $('#water_phone').textbox("setValue",selectedRow.water.phone);
+        $('#water_mobile').textbox("setValue",selectedRow.water.mobile);
+
+        $('#safe_contactName').textbox("setValue",selectedRow.safe.contactName);
+        $('#safe_contactPost').textbox("setValue",selectedRow.safe.contactPost);
+        $('#safe_phone').textbox("setValue",selectedRow.safe.phone);
+        $('#safe_mobile').textbox("setValue",selectedRow.safe.mobile);
+
+        $('#visual_contactName').textbox("setValue",selectedRow.visual.contactName);
+        $('#visual_contactPost').textbox("setValue",selectedRow.visual.contactPost);
+        $('#visual_phone').textbox("setValue",selectedRow.visual.phone);
+        $('#visual_mobile').textbox("setValue",selectedRow.visual.mobile);
+
+        $('#emergency_contactName').textbox("setValue",selectedRow.emergency.contactName);
+        $('#emergency_contactPost').textbox("setValue",selectedRow.emergency.contactPost);
+        $('#emergency_phone').textbox("setValue",selectedRow.emergency.phone);
+        $('#emergency_mobile').textbox("setValue",selectedRow.emergency.mobile);
+
+        $("#addCustomerWin").window("open");
+        $("#button_tr").hide();
+        $("#edit_button_tr").show();
     }
 
     //分配
@@ -479,45 +535,6 @@
             onDblClickRow : function(rowIndex,rowData){
                 showFormWin(rowIndex,rowData);
             }
-        });
-
-        //新增客户
-        addCustomerDialog = $("#addCustomerDiv").dialog({
-            title: '新增',
-            width: 400,
-            height: 450,
-            top: 30,
-            closed: true,
-            cache: false,
-            modal: true,
-            buttons:[{
-                text:'保存',
-                iconCls:'icon-ok',
-                handler:function(){
-                    submitForm();
-                }
-            },{
-                text:'取消',
-                iconCls:'icon-cancel',
-                handler:function(){
-                    addCustomerDialog.dialog('close');
-                }
-            }]
-        });
-
-        customerEditDialog = $("#customerEditDialog").dialog({
-            title: '修改',
-            iconCls:'icon-save',
-            closed: true,
-            resizable:false,
-            modal: true,
-            buttons:[{
-                text:'保存',
-                iconCls:'icon-ok',
-                handler:function(){
-                    editForm();
-                }
-            }]
         });
 
         //分配
@@ -592,9 +609,8 @@
             }]
         });
     });
-    //错误提示
 
-    function submitForm(){
+    function submitForm(draft){
         var customerCode = $('#customerCode').val();
         var customerName = $('#customerName').val();
         var typeCode = $('#typeCode').val();
@@ -651,7 +667,8 @@
                 water_contactName:water_contactName, water_contactPost:water_contactPost, water_phone:water_phone, water_mobile:water_mobile,
                 safe_contactName:safe_contactName, safe_contactPost:safe_contactPost, safe_phone:safe_phone, safe_mobile:safe_mobile,
                 visual_contactName:visual_contactName, visual_contactPost:visual_contactPost, visual_phone:visual_phone, visual_mobile:visual_mobile,
-                emergency_contactName:emergency_contactName, emergency_contactPost:emergency_contactPost, emergency_phone:emergency_phone, emergency_mobile:emergency_mobile
+                emergency_contactName:emergency_contactName, emergency_contactPost:emergency_contactPost, emergency_phone:emergency_phone, emergency_mobile:emergency_mobile,
+                draft:draft
             },
             cache:false,
             async:false,
@@ -665,6 +682,88 @@
                 $("#addCustomerWin").window("close");
                 //addCustomerDialog.dialog('close');
                 $.messager.alert('提示',"新增客户成功");
+            },
+            error:function(d){
+                $.messager.alert('提示',"请刷新重试");
+            }
+        });
+
+    }
+
+    function submitEditForm(draft){
+        var row = $('#dg').datagrid('getSelected');
+        var customeId = row.id;
+        var customerCode = $('#customerCode').val();
+        var customerName = $('#customerName').val();
+        var typeCode = $('#typeCode').val();
+        var typeName = $('#typeName').val();
+        var phone = $('#phone').val();
+        var fax = $('#fax').val();
+        var address = $('#address').val();
+        var url = $('#url').val();
+        //var corporate = $('#corporate').val();
+        var manager = $('#manager').val();
+        var contact = $('#contact').val();
+        var dockDepartment = $('#dockDepartment').val();
+        var dockPerson = $('#dockPerson').val();
+        var dockContact = $('#dockContact').val();
+        var relateDepartment = $('#relateDepartment').val();
+        var relatePerson = $('#relatePerson').val();
+        var relateContact = $('#relateContact').val();
+
+        var electric_contactName = $('#electric_contactName').val();
+        var electric_contactPost = $('#electric_contactPost').val();
+        var electric_phone = $('#electric_phone').val();
+        var electric_mobile = $('#electric_mobile').val();
+
+        var water_contactName = $('#water_contactName').val();
+        var water_contactPost = $('#water_contactPost').val();
+        var water_phone = $('#water_phone').val();
+        var water_mobile = $('#water_mobile').val();
+
+        var safe_contactName = $('#safe_contactName').val();
+        var safe_contactPost = $('#safe_contactPost').val();
+        var safe_phone = $('#safe_phone').val();
+        var safe_mobile = $('#safe_mobile').val();
+
+        var visual_contactName = $('#visual_contactName').val();
+        var visual_contactPost = $('#visual_contactPost').val();
+        var visual_phone = $('#visual_phone').val();
+        var visual_mobile = $('#visual_mobile').val();
+
+        var emergency_contactName = $('#emergency_contactName').val();
+        var emergency_contactPost = $('#emergency_contactPost').val();
+        var emergency_phone = $('#emergency_phone').val();
+        var emergency_mobile = $('#emergency_mobile').val();
+        $.ajax({
+            type:'post',
+            url:'/customer/updateCustomer',
+            dataType : "json",
+            data:{customeId:customeId, customerCode:customerCode, customerName:customerName, typeCode:typeCode,
+                typeName:typeName, phone:phone, fax:fax, address:address,
+                url:url, manager:manager,
+                contact:contact, dockDepartment:dockDepartment, dockPerson:dockPerson,
+                dockContact:dockContact, relateDepartment:relateDepartment, relatePerson:relatePerson,
+                relateContact:relateContact,
+                electric_contactName:electric_contactName, electric_contactPost:electric_contactPost, electric_phone:electric_phone, electric_mobile:electric_mobile,
+                water_contactName:water_contactName, water_contactPost:water_contactPost, water_phone:water_phone, water_mobile:water_mobile,
+                safe_contactName:safe_contactName, safe_contactPost:safe_contactPost, safe_phone:safe_phone, safe_mobile:safe_mobile,
+                visual_contactName:visual_contactName, visual_contactPost:visual_contactPost, visual_phone:visual_phone, visual_mobile:visual_mobile,
+                emergency_contactName:emergency_contactName, emergency_contactPost:emergency_contactPost, emergency_phone:emergency_phone, emergency_mobile:emergency_mobile,
+                draft:draft
+            },
+            cache:false,
+            async:false,
+            success:function(data){
+                $.messager.progress('close');
+                if(!data.success){
+                    $.messager.alert('提示',data.message);
+                }
+                //$('#dg').datagrid('reload');
+                loaddata();
+                $("#addCustomerWin").window("close");
+                //addCustomerDialog.dialog('close');
+                $.messager.alert('提示',"修改客户成功");
             },
             error:function(d){
                 $.messager.alert('提示',"请刷新重试");
@@ -719,60 +818,7 @@
 
         $("#addCustomerWin").window("open");
         $("#button_tr").hide();
-    }
-
-    //修改数据
-    function updateCustomer() {
-        var rows = $('#dg').datagrid('getSelections');
-        if(rows.length == 1) {
-            var data = {
-                'customer.id' : rows[0].id,
-                'customer.area' : rows[0].area,
-                'customer.areaDesc' : rows[0].areaDesc,
-                'customer.office' : rows[0].office,
-                'customer.officeDesc' : rows[0].officeDesc,
-                'customer.warroom' : rows[0].warroom,
-                'customer.warroomDesc' : rows[0].warroomDesc,
-                'customer.cusCode' : rows[0].cusCode,
-                'customer.cusName' : rows[0].cusName,
-                'customer.contact' : rows[0].contact,
-                'customer.contactPhone' : rows[0].contactPhone,
-                'customer.dealerAddress' : rows[0].dealerAddress
-            };
-            $('#updateCustomerData').form('load',data);
-        }else{
-            $.messager.alert('操作提示', '请选择1条要修改的数据！', 'info');
-            return;
-        }
-        customerEditDialog.dialog('open');
-    }
-
-    function editForm(){
-        $('#updateCustomerData').form('submit', {
-            onSubmit : function() {
-                var flag = $(this).form('validate');
-                if(flag==true){
-                    $.messager.progress({
-                        text : "正在保存，请稍后...",
-                        interval : 100
-                    });
-                }
-                return flag;
-            },
-            success : function(result) {
-                $.messager.progress('close');
-                handleActionResult(result, {
-                    onSuccess : function() {
-                        $.messager.show({
-                            title : '提示',
-                            msg : '修改成功'
-                        });
-                        $('#dg').datagrid('reload');
-                        customerEditDialog.dialog('close');
-                    }
-                });
-            }
-        });
+        $("#edit_button_tr").hide();
     }
 
     function submitDistribution(){

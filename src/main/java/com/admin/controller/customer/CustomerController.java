@@ -188,6 +188,7 @@ public class CustomerController {
         String emergency_contactPost = request.getParameter("emergency_contactPost");
         String emergency_phone = request.getParameter("emergency_phone");
         String emergency_mobile = request.getParameter("emergency_mobile");
+        String draft = request.getParameter("draft");
 
         Customer customer = new Customer();
         customer.setCustomerCode(customerCode);
@@ -258,9 +259,145 @@ public class CustomerController {
             emergency.setUpdatedBy(nickName);
             customer.setEmergency(emergency);
         }
-        customer.setStatus(2);
-        customer.setDraft(0);
+        customer.setStatus(1);
+        customer.setDraft(Integer.parseInt(draft));
         ServiceResult<Customer> result = customerService.createCustomer(customer);
+        if (!result.getSuccess()) {
+            log.error("新增客户失败！");
+            jsonResult.setMessage("新增客户失败！");
+            return jsonResult;
+        }
+        jsonResult.setData(result.getSuccess());
+        return jsonResult;
+    }
+
+    /**
+     * 修改
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/updateCustomer", method = RequestMethod.POST)
+    @ResponseBody
+    public Object updateCustomer(HttpServletRequest request) {
+        String nickName = (String)(request.getSession().getAttribute(SessionSecurityConstants.KEY_USER_NICK_NAME));
+        HttpJsonResult<Object> jsonResult = new HttpJsonResult<Object>();
+        String customeId = request.getParameter("customeId");
+        String customerCode = request.getParameter("customerCode");
+        String customerName = request.getParameter("customerName");
+        String typeCode = request.getParameter("typeCode");
+        String typeName = request.getParameter("typeName");
+        String phone = request.getParameter("phone");
+        String fax = request.getParameter("fax");
+        String address = request.getParameter("address");
+        String url = request.getParameter("url");
+        String manager = request.getParameter("manager");
+        String contact = request.getParameter("contact");
+        String dockDepartment = request.getParameter("dockDepartment");
+        String dockPerson = request.getParameter("dockPerson");
+        String dockContact = request.getParameter("dockContact");
+        String relateDepartment = request.getParameter("relateDepartment");
+        String relatePerson = request.getParameter("relatePerson");
+        String relateContact = request.getParameter("relateContact");
+
+        String electric_contactName = request.getParameter("electric_contactName");
+        String electric_contactPost = request.getParameter("electric_contactPost");
+        String electric_phone = request.getParameter("electric_phone");
+        String electric_mobile = request.getParameter("electric_mobile");
+
+        String water_contactName = request.getParameter("water_contactName");
+        String water_contactPost = request.getParameter("water_contactPost");
+        String water_phone = request.getParameter("water_phone");
+        String water_mobile = request.getParameter("water_mobile");
+
+        String safe_contactName = request.getParameter("safe_contactName");
+        String safe_contactPost = request.getParameter("safe_contactPost");
+        String safe_phone = request.getParameter("safe_phone");
+        String safe_mobile = request.getParameter("safe_mobile");
+
+        String visual_contactName = request.getParameter("visual_contactName");
+        String visual_contactPost = request.getParameter("visual_contactPost");
+        String visual_phone = request.getParameter("visual_phone");
+        String visual_mobile = request.getParameter("visual_mobile");
+
+        String emergency_contactName = request.getParameter("emergency_contactName");
+        String emergency_contactPost = request.getParameter("emergency_contactPost");
+        String emergency_phone = request.getParameter("emergency_phone");
+        String emergency_mobile = request.getParameter("emergency_mobile");
+        String draft = request.getParameter("draft");
+
+        Customer customer = new Customer();
+        customer.setId(Long.parseLong(customeId));
+        customer.setCustomerCode(customerCode);
+        customer.setCustomerName(customerName);
+        customer.setTypeCode(typeCode);
+        customer.setTypeName(typeName);
+        customer.setPhone(phone);
+        customer.setFax(fax);
+        customer.setAddress(address);
+        customer.setUrl(url);
+        customer.setManager(manager);
+        customer.setContact(contact);
+        customer.setDockDepartment(dockDepartment);
+        customer.setDockPerson(dockPerson);
+        customer.setDockContact(dockContact);
+        customer.setRelateDepartment(relateDepartment);
+        customer.setRelatePerson(relatePerson);
+        customer.setRelateContact(relateContact);
+        customer.setCreatedBy(nickName);
+        customer.setUpdatedBy(nickName);
+        if(electric_contactName != null && !"".equals(electric_contactName)){
+            CustomerContact electric = new CustomerContact();
+            electric.setContactName(electric_contactName);
+            electric.setContactPost(electric_contactPost);
+            electric.setPhone(electric_phone);
+            electric.setMobile(electric_mobile);
+            electric.setCreatedBy(nickName);
+            electric.setUpdatedBy(nickName);
+            customer.setElectric(electric);
+        }
+        if(water_contactName != null && !"".equals(water_contactName)){
+            CustomerContact water = new CustomerContact();
+            water.setContactName(water_contactName);
+            water.setContactPost(water_contactPost);
+            water.setPhone(water_phone);
+            water.setMobile(water_mobile);
+            water.setCreatedBy(nickName);
+            water.setUpdatedBy(nickName);
+            customer.setWater(water);
+        }
+        if(safe_contactName != null && !"".equals(safe_contactName)){
+            CustomerContact safe = new CustomerContact();
+            safe.setContactName(safe_contactName);
+            safe.setContactPost(safe_contactPost);
+            safe.setPhone(safe_phone);
+            safe.setMobile(safe_mobile);
+            safe.setCreatedBy(nickName);
+            safe.setUpdatedBy(nickName);
+            customer.setSafe(safe);
+        }
+        if(visual_contactName != null && !"".equals(visual_contactName)){
+            CustomerContact visual = new CustomerContact();
+            visual.setContactName(visual_contactName);
+            visual.setContactPost(visual_contactPost);
+            visual.setPhone(visual_phone);
+            visual.setMobile(visual_mobile);
+            visual.setCreatedBy(nickName);
+            visual.setUpdatedBy(nickName);
+            customer.setVisual(visual);
+        }
+        if(emergency_contactName != null && !"".equals(emergency_contactName)){
+            CustomerContact emergency = new CustomerContact();
+            emergency.setContactName(emergency_contactName);
+            emergency.setContactPost(emergency_contactPost);
+            emergency.setPhone(emergency_phone);
+            emergency.setMobile(emergency_mobile);
+            emergency.setCreatedBy(nickName);
+            emergency.setUpdatedBy(nickName);
+            customer.setEmergency(emergency);
+        }
+        customer.setStatus(1);
+        customer.setDraft(Integer.parseInt(draft));
+        ServiceResult<Customer> result = customerService.updateCustomer(customer);
         if (!result.getSuccess()) {
             log.error("新增客户失败！");
             jsonResult.setMessage("新增客户失败！");
