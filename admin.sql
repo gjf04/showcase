@@ -1208,7 +1208,7 @@ CREATE TABLE `user_info` (
   `mobile` varchar(20) DEFAULT NULL COMMENT '手机',
   `email` varchar(50) DEFAULT NULL COMMENT '邮箱',
   `nick_name` varchar(50) DEFAULT NULL COMMENT '昵称',
-  `birthday` datetime DEFAULT '1900-00-00 00:00:00' COMMENT '生日',
+  `birthday` datetime DEFAULT NULL COMMENT '生日',
   `identity_no` varchar(25) DEFAULT NULL COMMENT '身份证号',
   `address` varchar(200) DEFAULT NULL COMMENT '家庭住址',
   `parent_id` int(11) DEFAULT NULL COMMENT '直线上级id',
