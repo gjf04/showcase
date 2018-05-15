@@ -323,9 +323,9 @@
                 <pom.server.dynamic>http://localhost:8080</pom.server.dynamic>
                 <pom.app.url>http://localhost:8080</pom.app.url>
 
-                <pom.jdbc.url>1F0030AD817F268A2B79FBE744B326DE3DE285D1927DD570AA22BE737AB5C835FF9FA1B9D3AB5E1D</pom.jdbc.url>
+                <pom.jdbc.url>1F0030AD817F268A5AF4CA9B718E4B8253E6096C582265B42E703E803C6E8917336FBD165AEDBC49</pom.jdbc.url>
 				<pom.jdbc.username>E4D52E4B608ED135</pom.jdbc.username>
-				<pom.jdbc.password>25CF511E281CF37839E6152E87A7BF40</pom.jdbc.password>
+				<pom.jdbc.password>40AE888C8F715B40B4F5035B30B19846</pom.jdbc.password>
 
                 <!--<pom.jdbc.url>1F0030AD817F268A3FED02C0C1C1774D9B6F58676E382D1407A761E3D7A1B4C8</pom.jdbc.url>-->
                 <!--<pom.jdbc.username>D2A2150E6097A828</pom.jdbc.username>-->

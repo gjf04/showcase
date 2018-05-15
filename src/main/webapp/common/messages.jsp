@@ -1,4 +1,4 @@
-<%@ taglib prefix="s" uri="/struts-tags" %>
+
 <s:if test="hasActionErrors()||hasFieldErrors()">
 	<div class="message-error" id="_error_message_box">
       <s:iterator value="actionErrors">
